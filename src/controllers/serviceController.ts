@@ -8,15 +8,15 @@ const manager = () => getManager().getCustomRepository(ServiceRepository);
 export class ServiceController {
   static async createService(req: Request, res: Response, next: NextFunction) {}
 
- async getAllServices(
+ static async getAllServices(
     req: Request,
     res: Response,
     next: NextFunction
   ) {}
 
-   async getService(req: Request, res: Response, next: NextFunction) {}
+   static async getService(req: Request, res: Response, next: NextFunction) {}
 
-   async updateService(req: Request, res: Response, next: NextFunction) {}
+   static async updateService(req: Request, res: Response, next: NextFunction) {}
 
-   async deleteService(req: Request, res: Response, next: NextFunction) {}
+   static async deleteService(req: Request, res: Response, next: NextFunction) {}
 }
