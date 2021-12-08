@@ -9,6 +9,7 @@ const config: ConnectionOptions = {
     username: process.env.POSTGRES_USER || 'postgres',
     password: process.env.POSTGRES_PASSWORD || 'postgres',
     database: process.env.POSTGRES_DATABASE || 'pinkTeam',
+    entities: ["dist/entities/*.js"],
     extra: {ssl:false, rejectUnauthorized:false},
     logging:true,
     synchronize:true,
