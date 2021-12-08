@@ -9,7 +9,7 @@ import {getApplication} from "./app";
 
 const server = () => {
     createConnection(config)
-        .then(async connection => {
+        .then(() => {
             const application = getApplication();
             application.listen((port) , () => {
                 console.log(`Server is running on port : ${port}`);

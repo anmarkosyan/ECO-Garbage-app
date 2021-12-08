@@ -1,28 +1,119 @@
-version: '3.9'
+#version: '3.9'
+#services:
+#  web:
+#    build: .
+#    volumes:
+#      - ./:/app
+#    ports:
+#      - '7788:7788'
+#    container_name: web-app
+#    depends_on:
+#      - db
+#    networks:
+#      - postgres
+#  db:
+#    image: postgres
+#    volumes:
+#      - ./pgdata:/var/lib/postgresql/data
+#    container_name: pg-data
+#    env_file: ./.env
+#    ports:
+#      - '5432:5432'
+#    networks:
+#      - postgres
+#volumes:
+#  pgdata:
+#    external: true
+#networks:
+#  postgres:
+#    driver: bridge
+
+#version: '3'
+#services:
+#  postgres:
+#    image: postgres:12.1
+#    ports:
+#      - "5432:5432"
+#    env_file: ./.env
+#    volumes:
+#      - ./postgresql/data:/var/lib/postgresql/data
+#  web-app:
+#    build:
+#      dockerfile: Dockerfile
+#    volumes:
+#      - /app/node_modules
+#    ports:
+#      - "7788:7788"
+#    depends_on:
+#      - postgres
+
+#
+#
+#version: '3.5'
+#services:
+#  web-app:
+#    build:
+#      dockerfile: Dockerfile
+#    container_name: web-app
+#    restart: always
+#    ports:
+#      - "7788:7788"
+#    volumes:
+#      - .:/home/node/api
+#      - node_modules:/home/node/api/node_modules
+#    depends_on:
+#      - db
+#  db:
+#    expose:
+#      - 5432
+#    restart: always
+#    env_file: ./.env
+#    volumes:
+#      - pgReportData:/var/lib/postgresql/data
+#    container_name: pinkTeam
+#    image: postgres:10
+#volumes:
+#  pgReportData:
+#    driver: local
+#  node_modules:
+
+
+
+
+#version: "3"
+#services:
+#  web-app:
+#    build: .
+#    env_file:
+#      - ./.env
+#    ports:
+#      - "7788:7788"
+#    volumes:
+#      - .:/app
+#    restart: always
+#    depends_on:
+#      - db
+#  db:
+#    image: postgres
+#    env_file:
+#      - ./.env
+#    volumes:
+#      - ./bin/db:/var/lib/postgresql/data/
+#    ports:
+#      - "5432:5432"
+#    restart: always
+
+
+version: "3"
 services:
-  web:
+  app:
     build: .
-    volumes:
-      - ./:/app
-    ports:
-      - '7788:7788'
-    container_name: web-app
     depends_on:
-      - db
-    networks:
       - postgres
-  db:
-    image: postgres
-    volumes:
-      - ./pinkTeam:/var/lib/postgresql/data
-    container_name: pinkTeam
+    ports:
+      - "7788:7788"
+  postgres:
+    image: postgres:11.2-alpine
     env_file: ./.env
     ports:
-      - '5432:5432'
-    networks:
-      - postgres
-volumes:
-  pinkTeam:
-networks:
-  postgres:
-    driver: bridge
+      - "5432:5432"
