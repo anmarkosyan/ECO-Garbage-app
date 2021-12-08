@@ -2,4 +2,5 @@
 .env
 .idea
 dist/
-pinkTeam
+bin/
+

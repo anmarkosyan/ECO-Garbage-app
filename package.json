@@ -8,6 +8,7 @@
     "build": "rm -rf dist && tsc -p .",
     "start:dev": "nodemon --legacy-watch ./src/server.ts",
     "typeorm:migration:generate": "ts-node ./node_modules/typeorm/cli migration:generate -n"
+
   },
   "author": "Karen Boyakhchyan",
   "license": "ISC",
