@@ -4,10 +4,11 @@
   "description": "Cartographer for garbage services",
   "main": "server.ts",
   "scripts": {
-    "start": "npm run build && npm run execute",
-    "build": "tsc --build",
-    "execute": "nodemon ./dist/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./dist/src/server.js",
+    "build": "rm -rf dist && tsc -p .",
+    "start:dev": "nodemon --legacy-watch ./src/server.ts",
+    "typeorm:migration:generate": "ts-node ./node_modules/typeorm/cli migration:generate -n"
+
   },
   "author": "Karen Boyakhchyan",
   "license": "ISC",
@@ -18,6 +19,7 @@
     "express": "^4.17.1",
     "helmet": "^4.6.0",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^10.4.0",
