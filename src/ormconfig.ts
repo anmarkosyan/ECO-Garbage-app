@@ -1,7 +1,9 @@
+import * as path from "path";
 import { ConnectionOptions } from "typeorm";
 import dotenv from "dotenv";
 dotenv.config();
 
+const isCompiled = path.extname(__filename).includes('js');
 const config: ConnectionOptions = {
     type:"postgres",
     host: process.env.POSTGRES_HOST || 'localhost',
@@ -9,9 +11,9 @@ const config: ConnectionOptions = {
     username: process.env.POSTGRES_USER || 'postgres',
     password: process.env.POSTGRES_PASSWORD || 'postgres',
     database: process.env.POSTGRES_DATABASE || 'pinkTeam',
+    extra: {ssl:true, rejectUnauthorized:false},
     entities: ["dist/entities/*.js"],
-    extra: {ssl:false, rejectUnauthorized:false},
-    logging:true,
+    logging:'all',
     synchronize:true,
 };
 export default config;
