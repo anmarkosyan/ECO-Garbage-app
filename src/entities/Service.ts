@@ -14,7 +14,7 @@ export class ServiceEntity extends BaseEntity {
   id?: string;
 
   @Column('varchar', { length: 100 })
-  title?: string;
+  type?: string;
 
   @CreateDateColumn()
   created_at?: Date;
