@@ -1,14 +1,31 @@
-version: "3"
+version: '3.9'
 services:
-  app:
+  web:
     build: .
+    volumes:
+      - ./:/app
+    ports:
+      - '7788:7788'
+    container_name: pink-app
     depends_on:
       - db
-    ports:
-      - "7788:7788"
+    networks:
+      - postgres
+
   db:
-    image: postgres:11.2-alpine
+    image: postgres
+    volumes:
+      - ./pinkdata:/var/lib/postgresql/data
+    container_name: pink-data
     env_file: ./.env
     ports:
-      - "5432:5432"
+      - '5432:5432'
+    networks:
+      - postgres
 
+volumes:
+  pinkdata:
+
+networks:
+  postgres:
+    driver: bridge
