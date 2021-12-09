@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { getManager } from "typeorm";
-import { CommentRepository } from "../services/service";
-import { CommentEntity } from "../entities/Service";
+import { CommentRepository } from "../services/comment";
+
 
 const manager = () => getManager().getCustomRepository(CommentRepository);
 

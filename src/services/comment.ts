@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { CommnetEntity } from '../entities/Comment';
+import {CommentEntity} from "../entities/Comment";
 
 @EntityRepository(CommentEntity)
 export class CommentRepository extends Repository<CommentEntity> {

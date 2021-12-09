@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { getManager } from "typeorm";
 import { QuestionRepository } from "../services/question";
-import { QuestionEntity } from "../entities/Question";
+
 
 const manager = () => getManager().getCustomRepository(QuestionRepository);
 
