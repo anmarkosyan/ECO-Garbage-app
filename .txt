@@ -1,0 +1,116 @@
+
+========== SERVICES ========
+GET: /api/v1/service => get all services
+payload = [{
+            service_id: string;
+            garbage_type: string;
+            rating_quantity: number;
+            coordinates: number[];
+            description: string;
+            summary: string;
+            created_at: Date;
+            updated_at: Date;
+           },
+           {
+            service_id: string;
+            garbage_type: string;
+            rating_quantity: number;
+            coordinates: number[];
+            description: string;
+            summary: string;
+            created_at: Date;
+            updated_at: Date;
+           },
+           {
+               service_id: string;
+               garbage_type: string;
+               rating_quantity: number;
+               coordinates: number[];
+               description: string;
+               summary: string;
+               created_at: Date;
+               updated_at: Date;
+              }]
+GET: /api/v1/service/:id =>  get one service by id
+payload = {
+ service_id: string;
+ garbage_type: string;
+ rating_quantity: number;
+ coordinates: number[];
+ description: string;
+ summary: string;
+ created_at: Date;
+ updated_at: Date;
+}
+
+=========== QUESTIONS ======
+GET: /api/v1/questions => get all questions
+payload = [
+{
+description: string;
+ created_at: Date;
+ updated_at: Date;
+},
+{
+description: string;
+ created_at: Date;
+ updated_at: Date;
+ },
+ {
+ description: string;
+  created_at: Date;
+  updated_at: Date;
+  }
+ ]
+/api/v1/questions/:id => GET: get by id
+payload = {
+description: string;
+ created_at: Date;
+ updated_at: Date;
+}
+
+
+/api/v1/question  POST: req.body = {
+    "description": "" (string)
+}
+
+payload = {
+description: string;
+ created_at: Date;
+ updated_at: Date;
+}
+
+========= COMMENTS ======
+/api/v1/comments => GET: get all comments
+payload = [
+{
+content: string;
+ created_at: Date;
+ updated_at: Date;
+ },
+ {
+ content: string;
+  created_at: Date;
+  updated_at: Date;
+  };
+  {
+  content: string;
+   created_at: Date;
+   updated_at: Date;
+   }
+]
+/api/v1/comments/:id => GET: get by id
+payload = {
+  content: string;
+   created_at: Date;
+   updated_at: Date;
+   }
+
+/api/v1/comments  POST: req.body = {
+    "content": "" (string)
+}
+payload = {
+  content: string;
+   created_at: Date;
+   updated_at: Date;
+   }
