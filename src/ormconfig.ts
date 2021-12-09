@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { ConnectionOptions } from 'typeorm';
 import dotenv from 'dotenv';
-import {ServiceEntity} from './entities/Service';
+import {CommentEntity, QuestionEntity, ServiceEntity} from "./entities";
 
 dotenv.config();
 
@@ -14,7 +14,7 @@ const config: ConnectionOptions = {
     password: process.env.POSTGRES_PASSWORD || 'postgres',
     database: process.env.POSTGRES_DATABASE || 'pinkTeam',
     ssl:{rejectUnauthorized:false},
-    entities: [ServiceEntity],
+    entities: ["dist/entities*.js"],
     logging:'all',
     synchronize:true,
 };
