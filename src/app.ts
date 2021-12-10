@@ -23,9 +23,11 @@ export const getApplication = (): Express => {
     .use('/api/v1/services', serviceRoutes)
     .use('/api/v1/comments', commentRoutes)
     .use('/api/v1/questions', questionRoutes)
+
     .all('*', (req: Request, res: Response, next: NextFunction) => {
       next(HttpErr.notFound(`Can't find ${req.originalUrl} on this server!`));
     })
     .use(errorHandler);
+
   return app;
 };
