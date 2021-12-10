@@ -21,8 +21,11 @@ export class ServiceEntity extends BaseEntity {
   @Column('int')
   rating_quantity: number;
 
-  @Column('varchar', { array: true, default: [], nullable: false })
-  coordinates: number[];
+  @Column('varchar')
+  address: string;
+
+  @Column('varchar', { array: true, default: [] })
+  coordinates: string[];
 
   @Column('varchar', { length: 100 })
   description: string;
