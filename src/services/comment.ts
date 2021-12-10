@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { CommentEntity } from '../entities/Comment';
-import {newComment, IComment} from "../interfaces";
+import { newComment, IComment } from '../interfaces';
 
 @EntityRepository(CommentEntity)
 export class CommentRepository extends Repository<CommentEntity> {
@@ -12,7 +12,7 @@ export class CommentRepository extends Repository<CommentEntity> {
   async getComment(commentId: string) {
     const comment = await this.createQueryBuilder('comment')
       .select()
-      .where('comment.id = :query', { query: commentId })
+      .where('comment_id = :query', { query: commentId })
       .getOne();
 
     return comment;
@@ -26,7 +26,7 @@ export class CommentRepository extends Repository<CommentEntity> {
     const updatedComment = await this.createQueryBuilder('comment')
       .update(CommentEntity)
       .set({ ...content })
-      .where('comment.id = :query', { query: id })
+      .where('comment_id = :query', { query: id })
       .execute()
       .then(() => this.findOne(id));
 
@@ -38,10 +38,9 @@ export class CommentRepository extends Repository<CommentEntity> {
     await this.createQueryBuilder('comment')
       .delete()
       .from(CommentEntity)
-      .where('comment.id = :query', { query: id })
+      .where('comment_id = :query', { query: id })
       .execute();
 
     return data;
   }
-
 }
