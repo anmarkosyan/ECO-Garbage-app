@@ -1,15 +1,46 @@
 import { EntityRepository, Repository } from 'typeorm';
-import {CommentEntity} from "../entities/Comment";
+import { CommentEntity } from '../entities/Comment';
+import {newComment, IComment} from "../interfaces";
 
 @EntityRepository(CommentEntity)
 export class CommentRepository extends Repository<CommentEntity> {
-  async getAllComments() {}
+  async getAllComments() {
+    const comments = await this.createQueryBuilder('comment').getMany();
+    return comments;
+  }
 
-  async getComment() {}
+  async getComment(commentId: string) {
+    const comment = await this.createQueryBuilder('comment')
+      .select()
+      .where('comment.id = :query', { query: commentId })
+      .getOne();
 
-  async createComment() {}
+    return comment;
+  }
 
-  async updateComment() {}
+  async createComment(newComment: newComment) {
+    return await this.save(newComment);
+  }
 
-  async deleteComment() {}
+  async updateComment(id: string, content: IComment) {
+    const updatedComment = await this.createQueryBuilder('comment')
+      .update(CommentEntity)
+      .set({ ...content })
+      .where('comment.id = :query', { query: id })
+      .execute()
+      .then(() => this.findOne(id));
+
+    return updatedComment;
+  }
+
+  async deleteComment(id: string) {
+    const data = await this.findOne(id);
+    await this.createQueryBuilder('comment')
+      .delete()
+      .from(CommentEntity)
+      .where('comment.id = :query', { query: id })
+      .execute();
+
+    return data;
+  }
 }
