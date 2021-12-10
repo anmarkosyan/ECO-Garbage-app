@@ -1,6 +1,8 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { CommentEntity } from '../entities/Comment';
 import { newComment, IComment } from '../interfaces';
+import { HttpErr } from '../exceptions/HttpError';
+import ExceptionMessages from '../exceptions/messages';
 
 @EntityRepository(CommentEntity)
 export class CommentRepository extends Repository<CommentEntity> {
@@ -19,6 +21,10 @@ export class CommentRepository extends Repository<CommentEntity> {
   }
 
   async createComment(newComment: newComment) {
+    const service = await this.findOne(newComment.service_id);
+    if (service) {
+      throw HttpErr.notFound(ExceptionMessages.NOT_FOUND.SERVICE);
+    }
     return await this.save(newComment);
   }
 
