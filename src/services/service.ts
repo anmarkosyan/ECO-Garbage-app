@@ -27,8 +27,8 @@ export class ServiceRepository extends Repository<ServiceEntity> {
     const service = await getRepository(ServiceEntity).findOne(id);
     if(service) {
       await getRepository(ServiceEntity).merge(service, newService);
-      await getRepository(ServiceEntity).save(service);
-      return {Message:"Updated..."}
+      const updatedData =  await getRepository(ServiceEntity).save(service);
+      return updatedData;
     }else{
       throw new Error("Service not found...");
     }
