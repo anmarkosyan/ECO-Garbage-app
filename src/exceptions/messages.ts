@@ -16,3 +16,4 @@ const ExceptionMessages = {
   DB_ERROR: 'Database error',
 };
 export default ExceptionMessages;
+

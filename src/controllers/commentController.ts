@@ -17,7 +17,11 @@ export class CommentController {
       const { content, service_id } = req.body;
       const comment = new CommentEntity();
       if (!content || content.trim() === '') {
+
         return next(HttpErr.badRequest(ExceptionMsg.NOT_DEFINED));
+
+        
+
       }
       comment.content = content;
       comment.service_id = service_id;
