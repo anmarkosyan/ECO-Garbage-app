@@ -15,7 +15,7 @@ export class CommentController {
       const { content, service_id } = req.body;
       const comment = new CommentEntity();
       if (!content || content.trim() === '') {
-        return next(HttpErr.badRequest(ExceptionMessages.INVALID.TITLE));
+        return next(HttpErr.badRequest(ExceptionMessages.INVALID.INPUT));
       }
       comment.content = content;
       comment.service_id = service_id;
@@ -92,7 +92,7 @@ export class CommentController {
       }
       const data = await manager().deleteComment(id);
       if (!data) {
-        return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.BOARD));
+        return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.COMMENT));
       }
 
       res.status(200).json({
