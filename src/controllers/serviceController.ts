@@ -1,10 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ServiceRepository } from '../services/service';
-import { newService } from '../interfaces/service.interface';
 import { HttpErr } from '../exceptions/HttpError';
-import Exception from '../exceptions/exception';
 import ExceptionMessages from '../exceptions/messages';
-import { ServiceEntity } from '../entities/Service';
 import StatusCode from '../exceptions/statusCodes';
 
 export class ServiceController {
@@ -83,7 +80,7 @@ export class ServiceController {
       );
       return res.send(sendToServiceData);
     } catch {
-      throw new Error('Delete service error');
+      next(HttpErr.internalServerError(ExceptionMessages.INVALID.INPUT));
     }
   }
 }

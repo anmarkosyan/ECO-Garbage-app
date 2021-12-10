@@ -3,9 +3,11 @@ import { getManager } from 'typeorm';
 import { CommentRepository } from '../services/comment';
 import { CommentEntity } from '../entities/Comment';
 import { IComment } from '../interfaces';
-import {HttpErr} from "../exceptions/HttpError";
+import { HttpErr } from '../exceptions/HttpError';
 import ExceptionMessages from "../exceptions/messages";
-import StatusCode from "../exceptions/statusCodes";
+import ExceptionMsg from "../exceptions/msg";
+
+import StatusCode from '../exceptions/statusCodes';
 
 const manager = () => getManager().getCustomRepository(CommentRepository);
 
@@ -15,10 +17,15 @@ export class CommentController {
       const { content, service_id } = req.body;
       const comment = new CommentEntity();
       if (!content || content.trim() === '') {
-        return next(HttpErr.badRequest(ExceptionMessages.INVALID.INPUT));
+
+        return next(HttpErr.badRequest(ExceptionMsg.NOT_DEFINED));
+
+        
+
       }
       comment.content = content;
       comment.service_id = service_id;
+
       const commentData = await manager().createComment(comment);
       res.status(StatusCode.CreateRequest).json(commentData);
     } catch {
@@ -39,9 +46,9 @@ export class CommentController {
     try {
       const { id } = req.params;
       if (
-          !id.match(
-              '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
-          )
+        !id.match(
+          '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
+        )
       ) {
         return next(HttpErr.badRequest(ExceptionMessages.INVALID.ID));
       }
@@ -60,9 +67,9 @@ export class CommentController {
       const { content } = req.body;
       const { id } = req.params;
       if (
-          !id.match(
-              '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
-          )
+        !id.match(
+          '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
+        )
       ) {
         return next(HttpErr.badRequest(ExceptionMessages.INVALID.ID));
       }

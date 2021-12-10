@@ -36,9 +36,15 @@ export class ServiceEntity extends BaseEntity {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany( type => QuestionEntity, question => question.service, {cascade: true, eager: true})
+  @OneToMany(() => QuestionEntity, question => question.service, {
+    cascade: true,
+    eager: true,
+  })
   questions: QuestionEntity[];
 
-  @OneToMany( ( ) => CommentEntity, comment => comment.service, {cascade: true, eager:true})
+  @OneToMany(() => CommentEntity, comment => comment.service, {
+    cascade: true,
+    eager: true,
+  })
   comments: CommentEntity[];
 }
