@@ -27,12 +27,6 @@ export class ServiceEntity extends BaseEntity {
   @Column('varchar', { length: 100 })
   description: string;
 
-  @Column('varchar')
-  address: string;
-
-  @Column('int')
-  phone_number: number;
-
   @Column('varchar', { length: 250, nullable: false })
   summary: string;
 
