@@ -2,12 +2,11 @@ import * as path from 'path';
 import { ConnectionOptions } from 'typeorm';
 import dotenv from 'dotenv';
 import { ServiceEntity } from './entities/Service';
-import {CommentEntity} from "./entities/Comment";
-import {QuestionEntity} from "./entities/Question";
+import { CommentEntity } from './entities/Comment';
+import { QuestionEntity } from './entities/Question';
 
 dotenv.config();
 
-const isCompiled = path.extname(__filename).includes('js');
 const config: ConnectionOptions = {
   type: 'postgres',
   host: process.env.POSTGRES_HOST || 'localhost',

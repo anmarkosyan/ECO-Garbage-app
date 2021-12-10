@@ -18,6 +18,9 @@ export class CommentEntity extends BaseEntity {
   @Column('varchar', { length: 50 })
   content: string;
 
+  @Column()
+  service_id: string;
+
   @CreateDateColumn()
   created_at: Date;
 
