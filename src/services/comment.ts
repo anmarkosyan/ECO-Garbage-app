@@ -1,15 +1,15 @@
-import { EntityRepository, Repository } from 'typeorm';
+import {DeepPartial, EntityRepository, getRepository, Repository} from 'typeorm';
 import {CommentEntity} from "../entities/Comment";
 
 @EntityRepository(CommentEntity)
 export class CommentRepository extends Repository<CommentEntity> {
-  async getAllComments() {}
+  static async getAllComments() {};
 
-  async getComment() {}
+  static async getComment(commentId:string) {}
 
-  async createComment() {}
+  static async createComment(newComment:DeepPartial<CommentEntity>) {}
 
-  async updateComment() {}
+  static async updateComment(id:string, newComment:Partial<CommentEntity>) {}
 
-  async deleteComment() {}
+  static  async deleteComment() {}
 }

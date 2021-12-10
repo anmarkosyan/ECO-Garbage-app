@@ -7,6 +7,8 @@ import compression from 'compression';
 import { serviceRoutes } from './routes/serviceRoutes';
 import {commentRoutes} from './routes/commentRoutes';
 import {questionRoutes} from './routes/questionRoutes';
+import errorHandlerMiddleware from "./middleware/error-handler";
+import CustomError from "./utils/custom-error";
 
 export const getApplication = (): Express => {
   const app = express()
@@ -20,6 +22,10 @@ export const getApplication = (): Express => {
     })
     .use('/api/v1/services', serviceRoutes)
     .use('/api/v1/comments', commentRoutes)
-    .use('/api/v1/questions', questionRoutes);
+    .use('/api/v1/questions', questionRoutes)
+    .all("*" , (req, res, next) => {
+        next(CustomError);
+    })
+    .use(errorHandlerMiddleware)
   return app;
 };
