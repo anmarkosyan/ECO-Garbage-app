@@ -5,7 +5,7 @@ import { CommentEntity } from '../entities/Comment';
 import { IComment } from '../interfaces';
 import { HttpErr } from '../exceptions/HttpError';
 import ExceptionMessages from "../exceptions/messages";
-import ExceptionMsg from "../exceptions/msg";
+
 
 import StatusCode from '../exceptions/statusCodes';
 
@@ -17,11 +17,7 @@ export class CommentController {
       const { content, service_id } = req.body;
       const comment = new CommentEntity();
       if (!content || content.trim() === '') {
-
-        return next(HttpErr.badRequest(ExceptionMsg.NOT_DEFINED));
-
-        
-
+        return next(HttpErr.badRequest(ExceptionMessages.NOT_DEFINED));
       }
       comment.content = content;
       comment.service_id = service_id;
