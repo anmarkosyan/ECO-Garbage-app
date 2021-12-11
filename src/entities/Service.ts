@@ -15,22 +15,22 @@ export class ServiceEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   service_id: string;
 
-  @Column('varchar', { length: 50 })
+  @Column('varchar')
   type: string;
 
   @Column('int')
   rating_quantity: number;
 
+  @Column("float",{ array: true, default: [], nullable: false })
+  coordinates: number[];
+
+  @Column('varchar',)
+  description: string;
+
   @Column('varchar')
   address: string;
 
-  @Column('varchar', { array: true, default: [] })
-  coordinates: string[];
-
-  @Column('varchar', { length: 100 })
-  description: string;
-
-  @Column('varchar', { length: 250, nullable: false })
+  @Column('varchar', {nullable: false })
   summary: string;
 
   @CreateDateColumn()
