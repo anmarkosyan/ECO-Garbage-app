@@ -15,16 +15,16 @@ export class ServiceEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   service_id: string;
 
-  @Column('varchar', { length: 50 })
+  @Column('varchar')
   type: string;
 
   @Column('int')
   rating_quantity: number;
 
-  @Column('varchar', { array: true, default: [], nullable: false })
+  @Column("float",{ array: true, default: [], nullable: false })
   coordinates: number[];
 
-  @Column('varchar', { length: 100 })
+  @Column('varchar',)
   description: string;
 
   @Column('varchar')
@@ -33,7 +33,7 @@ export class ServiceEntity extends BaseEntity {
   @Column('int')
   phone_number: number;
 
-  @Column('varchar', { length: 250, nullable: false })
+  @Column('varchar', {nullable: false })
   summary: string;
 
   @CreateDateColumn()
