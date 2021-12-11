@@ -3,7 +3,6 @@ import { ServiceRepository } from '../services/service';
 import { HttpErr } from '../exceptions/HttpError';
 import ExceptionMessages from '../exceptions/messages';
 import StatusCode from '../exceptions/statusCodes';
-import { ServiceEntity } from '../entities/Service';
 
 export class ServiceController {
   static async createService(req: Request, res: Response, next: NextFunction) {
