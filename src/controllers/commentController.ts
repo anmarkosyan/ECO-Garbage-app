@@ -30,10 +30,7 @@ export class CommentController {
   static async getAllComments(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await manager().getAllComments();
-      res.status(StatusCode.SuccessRequest).json({
-        result: data.length,
-        data: data,
-      });
+      res.status(StatusCode.SuccessRequest).json(data);
     } catch {
       next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
