@@ -1,77 +1,80 @@
-import { Request, Response, NextFunction } from "express";
-import { getManager } from "typeorm";
-import { QuestionRepository } from "../services/question";
-import {HttpErr} from "../exceptions/HttpError";
-import ExceptionMessages from "../exceptions/messages";
-import StatusCode from "../exceptions/statusCodes";
-
-
+import { Request, Response, NextFunction } from 'express';
+import { QuestionRepository } from '../services/question';
+import { HttpErr } from '../exceptions/HttpError';
+import ExceptionMessages from '../exceptions/messages';
+import StatusCode from '../exceptions/statusCodes';
 
 export class QuestionController {
   static async createQuestion(req: Request, res: Response, next: NextFunction) {
-    try{
+    try {
       const newService = await req.body;
-      if(!newService.description || newService.description.trim() === ''){
-        return next(HttpErr.badRequest(ExceptionMessages.INVALID.INPUT))
-      }
-      console.log("aaaaaaaaaaaaaaaaaaaa");
       const commentData = await QuestionRepository.createQuestion(newService);
-      console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbb")
+      if (!commentData) {
+        return next(HttpErr.notFound(ExceptionMessages.DB_ERROR));
+      }
       res.status(StatusCode.CreateRequest).json(commentData);
-      console.log('ccccccccccccccccccccccccccccccc')
-    }catch {
-      next(HttpErr.internalServerError(ExceptionMessages.INVALID.INPUT))
+    } catch {
+      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
   }
 
-  static async getAllQuestions(req: Request, res: Response, next: NextFunction) {
+  static async getAllQuestions(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
       const commentData = await QuestionRepository.getAllQuestions();
       res.status(StatusCode.SuccessRequest).json(commentData);
-    }catch {
-      next(HttpErr.internalServerError(ExceptionMessages.INVALID.INPUT))
+    } catch {
+      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
   }
 
   static async getQuestion(req: Request, res: Response, next: NextFunction) {
-    try{
-      const {id} = req.params;
-      if(
-          !id.match('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$')
-      ){
-        return next(HttpErr.badRequest(ExceptionMessages.INVALID.ID));
+    try {
+      const { id } = req.params;
+      const questionData = await QuestionRepository.getQuestion(id);
+      if (!questionData) {
+        return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.QUESTION));
       }
-      const commentData = await QuestionRepository.getQuestion(id);
-      res.status(StatusCode.SuccessRequest).json(commentData);
-    }catch {
-      next(HttpErr.internalServerError(ExceptionMessages.INVALID.INPUT));
+      res.status(StatusCode.SuccessRequest).json(questionData);
+    } catch {
+      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
   }
 
   static async updateQuestion(req: Request, res: Response, next: NextFunction) {
-    try{
-      const {id} = req.params;
-      if(!id.match('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$')){
-        return next(HttpErr.badRequest(ExceptionMessages.INVALID.ID));
-      }
+    try {
+      const { id } = req.params;
       const newQuestion = req.body;
-      const commentData = await QuestionRepository.updateQuestion(id,newQuestion);
-      res.status(StatusCode.SuccessRequest).json(commentData)
-    }catch {
-      next(HttpErr.internalServerError(ExceptionMessages.INVALID.INPUT))
+      const questionData = await QuestionRepository.updateQuestion(
+        id,
+        newQuestion
+      );
+      if (!questionData) {
+        return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.QUESTION));
+      }
+
+      res.status(StatusCode.SuccessRequest).json(questionData);
+    } catch {
+      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
   }
 
   static async deleteQuestion(req: Request, res: Response, next: NextFunction) {
-    try{
-        const {id} = req.params;
-        if(!id.match('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$')){
-          return next(HttpErr.badRequest(ExceptionMessages.INVALID.ID));
-        }
-        const commentData = await QuestionRepository.deleteQuestion(id);
-        res.status(StatusCode.SuccessRequest).json(commentData);
-    }catch {
-      next(HttpErr.internalServerError(ExceptionMessages.INVALID.INPUT))
+    try {
+      const { id } = req.params;
+      const questionData = await QuestionRepository.deleteQuestion(id);
+
+      if(!questionData){
+        return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.QUESTION));
+      }
+      res.status(StatusCode.SuccessRequest).json({
+        message: 'Question successfully deleted.'
+      });
+    } catch {
+      next(HttpErr.internalServerError(ExceptionMessages.INVALID.QUESTION));
     }
   }
 }

@@ -1,8 +1,14 @@
-import {DeepPartial, EntityRepository, getConnection, getRepository, Repository} from 'typeorm';
-import {QuestionEntity} from "../entities/Question";
-import {HttpErr} from "../exceptions/HttpError";
-import ExceptionMessages from "../exceptions/messages";
-import {ServiceEntity} from "../entities/Service";
+import {
+  DeepPartial,
+  EntityRepository,
+  getConnection,
+  getRepository,
+  Repository,
+} from 'typeorm';
+import { QuestionEntity } from '../entities/Question';
+import { HttpErr } from '../exceptions/HttpError';
+import ExceptionMessages from '../exceptions/messages';
+import { ServiceEntity } from '../entities/Service';
 
 @EntityRepository(QuestionEntity)
 export class QuestionRepository extends Repository<QuestionEntity> {
@@ -10,49 +16,57 @@ export class QuestionRepository extends Repository<QuestionEntity> {
     return await getRepository(QuestionEntity).find();
   }
 
-  static async getQuestion(questionId:string) {
-    const question = await getRepository(QuestionEntity).findOne(questionId);
-    if(!question) {
-      return HttpErr.notFound(ExceptionMessages.NOT_FOUND.QUESTION);
+  static async getQuestion(questionId: string) {
+    try {
+      const question = await getRepository(QuestionEntity).findOne(questionId);
+      return question;
+    } catch {
+      return null;
     }
-    return question;
   }
 
   static async createQuestion(newQuestion: DeepPartial<QuestionEntity>) {
-    const newQuest = await getRepository(QuestionEntity).create(newQuestion);
-    const service_id = await newQuestion.service_id;
-    const service = await getRepository(ServiceEntity).findOne(service_id);
-    if(!service){
-      return HttpErr.notFound(ExceptionMessages.NOT_FOUND.SERVICE);
-    }
-
-    await getRepository(QuestionEntity).save(newQuest);
-    return newQuest;
-  }
-
-  static async updateQuestion(id:string, newQuestion: Partial<QuestionEntity>) {
-    const question = await getRepository(QuestionEntity).findOne(id);
-    if(question){
-      await getRepository(QuestionEntity).merge(question, newQuestion);
-      const updatedData = await getRepository(QuestionEntity).save(question);
-      return updatedData;
-    }else{
-      throw HttpErr.notFound(ExceptionMessages.NOT_FOUND.QUESTION);
+    try {
+      const newQuest = await getRepository(QuestionEntity).create(newQuestion);
+      const service_id = await newQuestion.service_id;
+      await getRepository(ServiceEntity).findOne(service_id);
+      await getRepository(QuestionEntity).save(newQuest);
+      return newQuest;
+    } catch {
+      return null;
     }
   }
 
-  static async deleteQuestion(id:string) {
-    const question = await getRepository(QuestionEntity).findOne(id);
-    if(question) {
-      await getConnection()
+  static async updateQuestion(
+    id: string,
+    newQuestion: Partial<QuestionEntity>
+  ) {
+    try {
+      const question = await getRepository(QuestionEntity).findOne(id);
+      if (question) {
+        await getRepository(QuestionEntity).merge(question, newQuestion);
+        const updatedData = await getRepository(QuestionEntity).save(question);
+        return updatedData;
+      }
+    } catch {
+      return null;
+    }
+  }
+
+  static async deleteQuestion(id: string) {
+    try {
+      const question = await getRepository(QuestionEntity).findOne(id);
+      if (question) {
+        const data = await getConnection()
           .createQueryBuilder()
           .update(QuestionEntity)
           .delete()
-          .where({question_id:id})
-          .execute()
-      return {Message:"Question deleted..."}
-    }else{
-      throw HttpErr.notFound(ExceptionMessages.NOT_FOUND.QUESTION);
+          .where({ question_id: id })
+          .execute();
+        return data;
+      }
+    } catch {
+      return null;
     }
   }
 }
