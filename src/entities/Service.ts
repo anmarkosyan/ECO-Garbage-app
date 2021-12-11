@@ -18,8 +18,8 @@ export class ServiceEntity extends BaseEntity {
   @Column('varchar')
   type: string;
 
-  @Column('int')
-  rating_quantity: number = 0;
+  @Column('int', {default: 0})
+  rating_quantity: number;
 
   @Column("float",{ array: true, default: [], nullable: false })
   coordinates: number[];
