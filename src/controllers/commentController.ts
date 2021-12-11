@@ -14,9 +14,6 @@ export class CommentController {
     try {
       const { content, service_id } = req.body;
       const comment = new CommentEntity();
-      if (!content || content.trim() === '') {
-        return next(HttpErr.badRequest(ExceptionMessages.INVALID.COMMENT));
-      }
       comment.content = content.trim();
       comment.service_id = service_id;
 
@@ -60,10 +57,6 @@ export class CommentController {
       const { content } = req.body;
       const { id } = req.params;
       const data: IComment = {};
-      if (!content || content.trim() === '') {
-        return next(HttpErr.badRequest(ExceptionMessages.INVALID.COMMENT));
-      }
-
       data.content = content.trim();
 
       const updatedData = await manager().updateComment(id, data);
