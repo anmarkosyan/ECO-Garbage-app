@@ -20,7 +20,7 @@ export class ServiceController {
   static async getAllServices(req: Request, res: Response, next: NextFunction) {
     try {
       const sendToServiceData = await ServiceRepository.getAllServices();
-      return res.status(200).json({sendToServiceData});
+      return res.status(200).json(sendToServiceData);
     } catch {
       next(HttpErr.internalServerError(ExceptionMessages.INVALID.INPUT));
     }
