@@ -19,7 +19,7 @@ export class ServiceEntity extends BaseEntity {
   type: string;
 
   @Column('int')
-  rating_quantity: number;
+  rating_quantity: number = 0;
 
   @Column("float",{ array: true, default: [], nullable: false })
   coordinates: number[];

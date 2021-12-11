@@ -11,6 +11,7 @@ router
   .route('/:id')
   .get(ServiceController.getService)
   .patch(ServiceController.updateService)
+  .put(ServiceController.updateRating)
   .delete(ServiceController.deleteService);
 
 export { router as serviceRoutes };
