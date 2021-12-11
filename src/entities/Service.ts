@@ -20,6 +20,9 @@ export class ServiceEntity extends BaseEntity {
 
   @Column('int', {default: 0})
   rating_quantity: number;
+  
+  @Column('int')
+  phone_number: number;
 
   @Column("float",{ array: true, default: [], nullable: false })
   coordinates: number[];
