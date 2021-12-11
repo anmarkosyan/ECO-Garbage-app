@@ -30,9 +30,6 @@ export class ServiceEntity extends BaseEntity {
   @Column('varchar')
   address: string;
 
-  @Column('int')
-  phone_number: number;
-
   @Column('varchar', {nullable: false })
   summary: string;
 
