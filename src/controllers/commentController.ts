@@ -72,7 +72,7 @@ export class CommentController {
       }
       res.status(StatusCode.SuccessRequest).json(updatedData);
     } catch {
-      next(HttpErr.internalServerError(ExceptionMessages.INVALID.COMMENT));
+      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
   }
 
