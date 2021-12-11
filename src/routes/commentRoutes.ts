@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { CommentController } from '../controllers/commentController';
 import { validateRequestSchema } from '../middleware/validate-request-schema';
-import { createCommentDto, updateComment } from '../dtos/comment.dtos';
+import { createCommentDto, updateCommentDto } from '../dtos/comment.dtos';
 
 const router = Router();
 
@@ -16,7 +16,7 @@ router
 router
   .route('/:id')
   .get(CommentController.getComment)
-  .patch(updateComment, validateRequestSchema, CommentController.updateComment)
+  .patch(updateCommentDto, validateRequestSchema, CommentController.updateComment)
   .delete(CommentController.deleteComment);
 
 export { router as commentRoutes };

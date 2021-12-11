@@ -1,17 +1,31 @@
 import { Router } from 'express';
 import { ServiceController } from '../controllers/serviceController';
+import {
+  createServiceDto,
+  ratingUpdateDto,
+  updateServiceDto,
+} from '../dtos/service.dtos';
+import { validateRequestSchema } from '../middleware/validate-request-schema';
 
 const router = Router();
 
 router
   .route('/')
   .get(ServiceController.getAllServices)
-  .post(ServiceController.createService);
+  .post(
+    createServiceDto,
+    validateRequestSchema,
+    ServiceController.createService
+  );
 router
   .route('/:id')
   .get(ServiceController.getService)
-  .patch(ServiceController.updateService)
-  .put(ServiceController.updateRating)
+  .patch(
+    updateServiceDto,
+    validateRequestSchema,
+    ServiceController.updateService
+  )
+  .put(ratingUpdate, validateRequestSchema, ServiceController.updateRating)
   .delete(ServiceController.deleteService);
 
 export { router as serviceRoutes };
