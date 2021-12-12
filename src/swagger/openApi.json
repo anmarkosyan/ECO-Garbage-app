@@ -1,0 +1,583 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is our simple garbage-collection-sorting application\n\nTry to get some information with us\n\nGo here and enjoy with our map-box-application\n\n` https://pink-team-fe.web.app/map ` ",
+    "version": "1.0.0",
+    "title": "Pink Team - Sorting Project"
+  },
+  "tags": [
+    {
+      "name": "services",
+      "description": ""
+    },
+    {
+      "name": "questions",
+      "description": ""
+    },
+    {
+      "name": "comments",
+      "description": ""
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/api/v1/services": {
+      "get": {
+        "tags": [
+          "services"
+        ],
+        "summary": "Return a list of services",
+        "description": "Services that are already created",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": [
+                {
+                  "service_id": "uuid",
+                  "type": "Metal Weste",
+                  "description": "Info about the service",
+                  "summary": "The name of waste",
+                  "coordinates": [
+                    "45454.545",
+                    "54545.4545"
+                  ],
+                  "phone_number": 7812777777,
+                  "address": "Some place",
+                  "reting_quantity": 0,
+                  "created_at": "2021-10-11T13:30:17.950Z",
+                  "updated_at": "2021-10-11T13:30:17.950Z"
+                },
+                {
+                  "service_id": "uuid",
+                  "type": "Metal Weste",
+                  "description": "Info about the service",
+                  "summary": "The name of waste",
+                  "coordinates": [
+                    "45454.545",
+                    "54545.4545"
+                  ],
+                  "phone_number": 7812777777,
+                  "address": "Some place",
+                  "reting_quantity": 0,
+                  "created_at": "2021-10-11T13:30:17.950Z",
+                  "updated_at": "2021-10-11T13:30:17.950Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/services/{service_id}": {
+      "get": {
+        "tags": [
+          "services"
+        ],
+        "summary": "Find service by ID",
+        "description": "Returns a single service",
+        "operationId": "getById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "service_id",
+            "in": "path",
+            "description": "ID of service return",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": {
+                "service_id": "uuid",
+                "type": "Metal Weste",
+                "description": "Info about the service",
+                "summary": "The name of waste",
+                "coordinates": [
+                  "45454.545",
+                  "54545.4545"
+                ],
+                "phone_number": 7812777777,
+                "address": "Some place",
+                "reting_quantity": 0,
+                "created_at": "2021-10-11T13:30:17.950Z",
+                "updated_at": "2021-10-11T13:30:17.950Z"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/comments": {
+      "post": {
+        "tags": [
+          "comments"
+        ],
+        "summary": "Add a new comment to db",
+        "description": "",
+        "operationId": "addComment",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Comment that needs to be added to service",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": {
+                "content": "Some comment",
+                "service_id": "UUID"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succsesfully Created"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "comments"
+        ],
+        "summary": "Return a list of comments",
+        "description": "Comments that are already created",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": [
+                {
+                  "service_id": "UUID",
+                  "comment_id": "UUID",
+                  "content": "Some comment",
+                  "created_at": "2021-10-11T13:30:17.950Z",
+                  "updated_at": "2021-10-11T13:30:17.950Z"
+                },
+                {
+                  "service_id": "UUID",
+                  "comment_id": "UUID",
+                  "content": "Some comment",
+                  "created_at": "2021-10-11T13:30:17.950Z",
+                  "updated_at": "2021-10-11T13:30:17.950Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/comments/{comment_id}": {
+      "get": {
+        "tags": [
+          "comments"
+        ],
+        "summary": "Find comment by ID",
+        "description": "Returns a single comment",
+        "operationId": "getCommentById",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "comment_id",
+            "in": "path",
+            "description": "ID of comment to return",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": {
+                "comment_id": "uud",
+                "service_id": "uuid",
+                "content": "some comment",
+                "created_at": "2022-11-11T13:30:17.950Z",
+                "updated_at": "2022-11-11T13:30:17.950Z"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Comment not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "comments"
+        ],
+        "summary": "Updates a comment in db with form data",
+        "description": "",
+        "operationId": "updateCommentWithForm",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "comment_id",
+            "in": "path",
+            "description": "ID of comment that needs to be update",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "property that needs to be updated",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": {
+                "content": "something updated"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": {
+                "comment_id": "uuid",
+                "service_id": "uuid",
+                "content": "some comment",
+                "created_at": "2022-11-11T13:30:17.950Z",
+                "updated_at": "2022-11-11T13:30:17.950Z"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Comment not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "comments"
+        ],
+        "summary": "Delete a comment",
+        "description": "",
+        "operationId": "deleteComment",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "comment_id",
+            "in": "path",
+            "description": "comment id to delete",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Comment not found"
+          }
+        }
+      }
+    },
+    "/api/v1/questions": {
+      "post": {
+        "tags": [
+          "questions"
+        ],
+        "description": "",
+        "summary": "Add a new question to db",
+        "operationId": "addQuestion",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Question object that needs to be added to db",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": {
+                "service_id": "uuid",
+                "description": "some question"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succsesfully Created"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "questions"
+        ],
+        "summary": "Return a list of questions",
+        "description": "Questions that are already created",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": [
+                {
+                  "question_id": "uuid",
+                  "service_id": "uuid",
+                  "description": "some question",
+                  "created_at": "2021-10-20T13:06:16.439Z",
+                  "updated_at": "2021-10-20T13:06:16.439Z"
+                },
+                {
+                  "question_id": "uuid",
+                  "service_id": "uuid",
+                  "description": "some question",
+                  "created_at": "2021-10-20T13:06:16.439Z",
+                  "updated_at": "2021-10-20T13:06:16.439Z"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/questions/{question_id}": {
+      "get": {
+        "tags": [
+          "questions"
+        ],
+        "summary": "Find question by ID",
+        "description": "Returns a single question",
+        "operationId": "getBy_Id",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "question_id",
+            "in": "path",
+            "description": "ID of board to return",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": {
+                "question_id": "uuid",
+                "service_id": "uuid",
+                "description": "some question",
+                "created_at": "2021-10-20T13:06:16.439Z",
+                "updated_at": "2021-10-20T13:06:16.439Z"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Question not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "questions"
+        ],
+        "summary": "Updates a question db with form data",
+        "description": "",
+        "operationId": "updateQuestionWithForm",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "question_id",
+            "in": "path",
+            "description": "ID of question needs to be update",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "property that needs to be updated",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": {
+                "description": "something updated"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Question not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "questions"
+        ],
+        "summary": "Delete a question",
+        "description": "",
+        "operationId": "deleteQuestion",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "question_id",
+            "in": "path",
+            "description": "Question id to delete",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Question not found"
+          }
+        }
+      }
+    }
+  }
+}
