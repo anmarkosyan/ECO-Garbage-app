@@ -7,13 +7,13 @@ const ExceptionMessages = {
     QUESTION: 'Question not found',
   },
   INVALID: {
-    CONTENT: 'Not valid input for comment',
+    COMMENT: 'Not valid input for comment',
     QUESTION: 'Not valid input for questions',
-    INPUT: 'Not valid input',
+    SERVICE: 'Not valid input for service',
     ID: 'Id is not valid',
   },
+
   INTERNAL: 'Internal Server Error',
-  DB_ERROR: 'Database error',
+  DB_ERROR: 'Not valid service ID',
 };
 export default ExceptionMessages;
-

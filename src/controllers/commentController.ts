@@ -4,9 +4,7 @@ import { CommentRepository } from '../services/comment';
 import { CommentEntity } from '../entities/Comment';
 import { IComment } from '../interfaces';
 import { HttpErr } from '../exceptions/HttpError';
-import ExceptionMessages from "../exceptions/messages";
-
-
+import ExceptionMessages from '../exceptions/messages';
 import StatusCode from '../exceptions/statusCodes';
 
 const manager = () => getManager().getCustomRepository(CommentRepository);
@@ -16,16 +14,16 @@ export class CommentController {
     try {
       const { content, service_id } = req.body;
       const comment = new CommentEntity();
-      if (!content || content.trim() === '') {
-        return next(HttpErr.badRequest(ExceptionMessages.NOT_DEFINED));
-      }
-      comment.content = content;
+      comment.content = content.trim();
       comment.service_id = service_id;
 
       const commentData = await manager().createComment(comment);
+      if (!commentData) {
+        return next(HttpErr.notFound(ExceptionMessages.DB_ERROR));
+      }
       res.status(StatusCode.CreateRequest).json(commentData);
     } catch {
-      next(HttpErr.internalServerError(ExceptionMessages.INVALID.INPUT));
+      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
   }
 
@@ -34,27 +32,20 @@ export class CommentController {
       const data = await manager().getAllComments();
       res.status(StatusCode.SuccessRequest).json(data);
     } catch {
-      next(HttpErr.internalServerError(ExceptionMessages.INVALID.INPUT));
+      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
   }
 
   static async getComment(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      if (
-        !id.match(
-          '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
-        )
-      ) {
-        return next(HttpErr.badRequest(ExceptionMessages.INVALID.ID));
-      }
       const oneData = await manager().getComment(id);
       if (!oneData) {
         return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.COMMENT));
       }
       res.status(StatusCode.SuccessRequest).json(oneData);
     } catch {
-      next(HttpErr.internalServerError(ExceptionMessages.INVALID.INPUT));
+      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
   }
 
@@ -62,38 +53,24 @@ export class CommentController {
     try {
       const { content } = req.body;
       const { id } = req.params;
-      if (
-        !id.match(
-          '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
-        )
-      ) {
-        return next(HttpErr.badRequest(ExceptionMessages.INVALID.ID));
+      const data: IComment = {};
+      data.content = content.trim();
+
+      const updatedData = await manager().updateComment(id, data);
+      if (!updatedData) {
+        return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.COMMENT));
       }
-
-      const updatedData: IComment = {};
-
-      if (content && content.trim()) {
-        updatedData.content = content;
-      }
-
-      const updateData = await manager().updateComment(id, updatedData);
-      res.status(StatusCode.SuccessRequest).json(updateData);
+      res.status(StatusCode.SuccessRequest).json(updatedData);
     } catch {
-      next(HttpErr.internalServerError(ExceptionMessages.INVALID.INPUT));
+      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
   }
 
   static async deleteComment(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      if (
-        !id.match(
-          '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
-        )
-      ) {
-        return next(HttpErr.badRequest(ExceptionMessages.INVALID.ID));
-      }
       const data = await manager().deleteComment(id);
+
       if (!data) {
         return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.COMMENT));
       }
@@ -101,8 +78,8 @@ export class CommentController {
       res.status(200).json({
         message: 'Comment successfully deleted.',
       });
-    } catch (e) {
-      next(HttpErr.internalServerError(ExceptionMessages.INVALID.INPUT));
+    } catch {
+      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
   }
 }
