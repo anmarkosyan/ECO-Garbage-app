@@ -25,7 +25,6 @@ router
     validateRequestSchema,
     ServiceController.updateService
   )
-  .put(ratingUpdateDto, validateRequestSchema, ServiceController.updateRating)
   .delete(ServiceController.deleteService);
 
 export { router as serviceRoutes };
