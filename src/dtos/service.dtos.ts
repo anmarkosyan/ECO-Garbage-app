@@ -1,8 +1,11 @@
 import { body } from 'express-validator';
 
 export const createServiceDto = [
-  body('type').isString().notEmpty(),
-  body('rating_quantity').isNumeric().optional(),
+  body('type').isString().notEmpty().withMessage('Not valid type for services'),
+  body('rating_quantity')
+    .isNumeric()
+    .optional()
+    .withMessage('Not valid rating for services'),
   body('coordinates')
     .isArray({ min: 2 })
     .notEmpty()
@@ -26,8 +29,8 @@ export const createServiceDto = [
 ];
 
 export const updateServiceDto = [
-  body('type').isString().optional().notEmpty(),
-  body('rating_quantity').isNumeric().optional().notEmpty(),
+  body('type').isString().optional().notEmpty().withMessage('Not valid type for services'),
+  body('rating_quantity').isNumeric().optional().notEmpty().withMessage('Not rating type for services'),
   body('coordinates')
     .isArray({ min: 2 })
     .optional()
@@ -49,9 +52,9 @@ export const updateServiceDto = [
     .notEmpty()
     .withMessage('Not valid summary for services'),
   body('phone_number')
-      .isNumeric()
-      .notEmpty()
-      .optional()
-      .withMessage('Not valid phone-number for services'),
+    .isNumeric()
+    .notEmpty()
+    .optional()
+    .withMessage('Not valid phone-number for services'),
 ];
 export const ratingUpdateDto = [body('rating_quantity').isNumeric().notEmpty()];
