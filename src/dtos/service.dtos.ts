@@ -57,4 +57,3 @@ export const updateServiceDto = [
     .optional()
     .withMessage('Not valid phone-number for services'),
 ];
-export const ratingUpdateDto = [body('rating_quantity').isNumeric().notEmpty()];

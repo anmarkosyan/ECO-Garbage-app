@@ -56,7 +56,7 @@ export class ServiceController {
       next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
     }
   }
-  
+
   static async deleteService(req: Request, res: Response, next: NextFunction) {
     try {
       const serviceId = req.params.id;

@@ -30,10 +30,14 @@ export class ServiceRepository extends Repository<ServiceEntity> {
   }
 
   static async updateService(id: string, newService: IService) {
+    console.log(newService);
     try {
       const service = await getRepository(ServiceEntity).findOne(id);
       if (service) {
-        await getRepository(ServiceEntity).merge(service, newService);
+        if(!newService.rating_quantity){
+          return null;
+        }
+        await getRepository(ServiceEntity).merge(service, {...newService, rating_quantity:service.rating_quantity + newService.rating_quantity});
         const updatedData = await getRepository(ServiceEntity).save(service);
         return updatedData;
       }
