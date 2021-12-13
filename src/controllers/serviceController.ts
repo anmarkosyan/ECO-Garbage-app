@@ -57,21 +57,6 @@ export class ServiceController {
     }
   }
 
-  static async updateRating(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { id } = req.params;
-      const { rating_quantity: newRating } = req.body;
-
-      const updatedRating = await ServiceRepository.updateRating(id, newRating);
-      if (!updatedRating) {
-        return next(HttpErr.notFound(ExceptionMessages.NOT_FOUND.SERVICE));
-      }
-      res.status(205).json(updatedRating);
-    } catch (e) {
-      next(HttpErr.internalServerError(ExceptionMessages.INTERNAL));
-    }
-  }
-
   static async deleteService(req: Request, res: Response, next: NextFunction) {
     try {
       const serviceId = req.params.id;
