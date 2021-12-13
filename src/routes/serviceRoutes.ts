@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { ServiceController } from '../controllers/serviceController';
 import {
   createServiceDto,
-  ratingUpdateDto,
   updateServiceDto,
 } from '../dtos/service.dtos';
 import { validateRequestSchema } from '../middleware/validate-request-schema';
