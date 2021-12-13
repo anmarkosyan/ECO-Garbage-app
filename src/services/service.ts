@@ -42,19 +42,6 @@ export class ServiceRepository extends Repository<ServiceEntity> {
     }
   }
 
-  static async updateRating(id: string, newRating: number) {
-    try {
-      const service = await getRepository(ServiceEntity).findOne(id);
-      if (service) {
-        service.rating_quantity = service.rating_quantity + newRating;
-        const updatedData = await getRepository(ServiceEntity).save(service);
-        return updatedData;
-      }
-    } catch {
-      return null;
-    }
-  }
-
   static async deleteService(id: string) {
     try {
       const service = await getRepository(ServiceEntity).findOne(id);
