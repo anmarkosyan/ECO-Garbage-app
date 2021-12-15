@@ -65,8 +65,8 @@
                   "description": "Info about the service",
                   "summary": "The name of waste",
                   "coordinates": [
-                    "45454.545",
-                    "54545.4545"
+                    45454.545,
+                    54545.4545
                   ],
                   "phone_number": 7812777777,
                   "address": "Some place",
@@ -83,9 +83,13 @@
         "tags": [
           "services"
         ],
-        "summary": "Create service",
-        "description": "Add a new",
-        "operationId": "addService",
+        "summary": "Create bew service",
+        "description": "",
+        "operationId": "addComment",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
         "produces": [
           "application/json",
           "application/xml"
@@ -94,7 +98,7 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Service object that needs to be added to db",
+            "description": "Service that needs to be added to db",
             "required": true,
             "schema": {
               "type": "array",
@@ -102,14 +106,14 @@
                 "type": "string"
               },
               "example": {
-                "type": "Metal",
-                "rating_quantity": 7,
+                "type": "some type",
+                "rating_qunatity": 0,
                 "phone_number": 765656,
                 "coordinates": [
                   30.3938,
                   59.9993
                 ],
-                "description": "Scrap metal reception companies collect, store and transport metal waste for further processing. Residents of the city and enterprises can sell scrap metal in several stages and get money for it..",
+                "description": "Scrap metal reception companies collect...",
                 "address": "улица Фаворского, улица Бутлерова, округ Гражданка, Saint Petersburg, Russia, 195220",
                 "summary": "Metal Waste"
               }
@@ -118,16 +122,16 @@
         ],
         "responses": {
           "200": {
-            "description": "Succsesfully Created"
+            "description": "Service Succsesfully Created"
           },
           "404": {
-            "description": "Not found"
+            "description": "Service Not found"
           },
           "405": {
-            "description": "Invalid input"
+            "description": "Invalid input for creating service"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error! Please check your connection or please provide right info..."
           }
         }
       }
@@ -168,8 +172,8 @@
                 "description": "Info about the service",
                 "summary": "The name of waste",
                 "coordinates": [
-                  "45454.545",
-                  "54545.4545"
+                  45454.545,
+                  54545.4545
                 ],
                 "phone_number": 7812777777,
                 "address": "Some place",
@@ -180,58 +184,63 @@
             }
           }
         }
-      }
-    },
-    "patch": {
-      "tags": [
-        "services"
-      ],
-      "summary": "Updates a service in db with form data",
-      "description": "",
-      "operationId": "updateService",
-      "consumes": [
-        "application/json",
-        "application/xml"
-      ],
-      "produces": [
-        "application/json",
-        "application/xml"
-      ],
-      "parameters": [
-        {
-          "name": "service_id",
-          "in": "path",
-          "description": "ID of service that needs to be update",
-          "required": true,
-          "type": "integer",
-          "format": "int64"
-        },
-        {
-          "name": "body",
-          "in": "body",
-          "description": "property that needs to be updated",
-          "required": true,
-          "schema": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": {
-              "group_name": "Homepage",
-              "pos": "0|hzzzzz:"
+      },
+      "patch": {
+        "tags": [
+          "services"
+        ],
+        "summary": "Change the rating_quantity of the service",
+        "description": "Returns a single service",
+        "operationId": "getBy_Id",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "service_id",
+            "in": "path",
+            "description": "ID of service that needs to be update",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "property that needs to be updated",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": {
+                "content": "something updated"
+              }
             }
           }
-        }
-      ],
-      "responses": {
-        "400": {
-          "description": "Invalid ID supplied"
-        },
-        "404": {
-          "description": "Group not found"
-        },
-        "405": {
-          "description": "Validation exception"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": {
+                "service_id": "uuid",
+                "rating_quantity": 25
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Service not found"
+          }
         }
       }
     },
@@ -242,7 +251,7 @@
         ],
         "summary": "Add a new comment to db",
         "description": "",
-        "operationId": "addComment",
+        "operationId": "add_Comment",
         "consumes": [
           "application/json",
           "application/xml"
@@ -561,7 +570,7 @@
         ],
         "summary": "Find question by ID",
         "description": "Returns a single question",
-        "operationId": "getBy_Id",
+        "operationId": "get_By_Id",
         "produces": [
           "application/json",
           "application/xml"
@@ -679,10 +688,10 @@
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "Question not found" 
+            "description": "Question not found"
           }
         }
       }
     }
   }
-}
+} 
