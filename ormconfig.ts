@@ -1,9 +1,9 @@
 import * as path from 'path';
 import { ConnectionOptions } from 'typeorm';
 import dotenv from 'dotenv';
-import { ServiceEntity } from './entities/Service';
-import { CommentEntity } from './entities/Comment';
-import { QuestionEntity } from './entities/Question';
+import { ServiceEntity } from './src/entities/Service';
+import { CommentEntity } from './src/entities/Comment';
+import { QuestionEntity } from './src/entities/Question';
 
 dotenv.config();
 
@@ -17,6 +17,14 @@ const config: ConnectionOptions = {
   ssl: { rejectUnauthorized: false },
   entities: [ServiceEntity, CommentEntity, QuestionEntity],
   logging: 'all',
-  synchronize: true,
+  synchronize: false,
+  migrationsRun: true,
+  migrations:[
+    path.join(__dirname, "src/db/migrations/**/*.ts")
+  ],
+  cli:{
+    migrationsDir:path.join(__dirname, "src/db/migrations"),
+    entitiesDir:path.join(__dirname, "src/entities")
+  }
 };
 export default config;

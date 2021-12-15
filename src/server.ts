@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import dotenv from 'dotenv';
 import { createConnection } from 'typeorm';
-import config from './ormconfig';
+import config from '../ormconfig';
 import { getApplication } from './app';
 
 dotenv.config();
