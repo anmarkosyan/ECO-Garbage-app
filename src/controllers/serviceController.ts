@@ -4,14 +4,6 @@ import {HttpErr} from '../exceptions/HttpError';
 import ExceptionMessages from '../exceptions/messages';
 import StatusCode from '../exceptions/statusCodes';
 
-export function add(a: number, b: number): number | null {
-    if (a >= 10 || b >= 10) {
-       // return null;
-        throw new Error('input number should be more than 10');
-    }
-    return a + b;
-}
-
 export class ServiceController {
     static async createService(req: Request, res: Response, next: NextFunction) {
         try {
