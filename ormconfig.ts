@@ -14,17 +14,18 @@ const config: ConnectionOptions = {
   username: process.env.POSTGRES_USER || 'postgres',
   password: process.env.POSTGRES_PASSWORD || 'postgres',
   database: process.env.POSTGRES_DATABASE || 'pinkTeam',
-  ssl: { rejectUnauthorized: false },
+  //ssl: { rejectUnauthorized: false },
   entities: [ServiceEntity, CommentEntity, QuestionEntity],
   logging: 'all',
-  synchronize: false,
-  migrationsRun: true,
-  migrations:[
-    path.join(__dirname, "src/db/migrations/**/*.ts")
-  ],
-  cli:{
-    migrationsDir:path.join(__dirname, "src/db/migrations"),
-    entitiesDir:path.join(__dirname, "src/entities")
-  }
+  synchronize:true,
+  //synchronize: false,
+  // migrationsRun: true,
+  // migrations:[
+  //   path.join(__dirname, "src/db/migrations/**/*.ts")
+  // ],
+  // cli:{
+  //   migrationsDir:path.join(__dirname, "src/db/migrations"),
+  //   entitiesDir:path.join(__dirname, "src/entities")
+  // }
 };
 export default config;
